@@ -25,8 +25,7 @@ class Matrice
     
     Matrice(int nbLignes, int nbColonnes); // deuxieme constructeur surcharge. Ca va construire une matrice quelconque de la taille voulue
     
-    Matrice(Matrice const& A); // constructeur de copie. On en aura besoin lorsque l'on ecrit des fonctions avec un objet pour parametre et on veut eviter de faire une copie
-    // du parametre entre et on ne veut pas le modifier non plus. Il faut dire a l'ordinateur comment on construit notre matrice dans un tel cas
+    Matrice(Matrice const& A); // constructeur de copie. On le declare explicitement. Sinon, le constructeur de copie par defaut donne le comportement suivant : Supposons qu'il existe une matrice A. On ecrit Matrice B = A; si maintenant on change A, B change aussi
 	
 	~Matrice(); //le destructeur, il n'a pas de type a renvoyer ni de parametre. Il est tjs comme ca
 	
@@ -38,14 +37,9 @@ class Matrice
 	
 	void changerUnElement(int i, int j, long double x); //on met la valeur x pour l'element dans la i-eme ligne et la j-ieme colonne
 	
-	void setNbLignes(int n);
-	
-	void setNbColonnes(int n);
-	
 	int getNbLignes() const; // lorsque l'on est a l'exterieur de la classe par ex. dans un programme main, on ne peut pas lire les attributs. Donc on ne peut pas savoir
 	// le nombre de lignes de la matrice. Cependant on peut utiliser les methodes (on a mis le mot cle public en haut) et dans la definition d'une methode, comme on est a
-	// l'interier de la classe, on peut lire l'attribut m_nbLignes. Il s'agit d'un accesseur. Pourquoi faire tout cela? C'est justement l'un des interets de creer une classe
-	// et faire de la POO : le createur controle ce qu'il peut faire l'utilisateur
+	// l'interier de la classe, on peut lire l'attribut m_nbLignes. Il s'agit d'un accesseur. Pourquoi faire tout cela? C'est justement l'un des interets de creer une 	classe et faire de la POO : le createur controle ce qu'il peut faire l'utilisateur
 	
 	int getNbColonnes() const;
 	
@@ -57,7 +51,11 @@ class Matrice
 	
 	bool estLigneNulle(int q) const; // on teste si la q-ieme ligne est nulle
 	
+	void supprimeLigne(int k); // on supprime la k-ieme ligne
 	
+	void supprimeColonne(int k); // on supprime la k-ieme colonne
+	
+	void supprimeLigCol(int k, int l); // on supprime la k-ieme ligne et la l-ieme colonne
 
 	//attributs. Ils seront prives ie inaccesibles depuis l'exterieur
 	protected: //ENCAPSULATION : TOUS LES ATTRIBUTS D'UNE CLASSE DOIVENT TJS ETRE PRIVES

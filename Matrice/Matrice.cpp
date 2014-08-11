@@ -12,18 +12,18 @@ using namespace std;
 	{
 		m_nbLignes = 2;
 		m_nbColonnes = 2;
-		m_pointer = new long double * [2]; //m_pointer est du type int **. On lui alloue de l'espace pour 2 long double *
-		m_pointer[0] = new long double [2]; //on alloue de l'espace pour 2 int ie 2 entiers
-		m_pointer[1] = new long double [2]; //de meme ici
+		m_pointer = new long double *[2]; //m_pointer est du type int **. On lui alloue de l'espace pour 2 long double *
+		m_pointer[0] = new long double[2]; //on alloue de l'espace pour 2 int ie 2 entiers
+		m_pointer[1] = new long double[2]; //de meme ici
 		//on a cree une matrice carree de dimension 2. On va maintenant la remplir
-		m_pointer [0][0] = 1;
-        m_pointer [0][1] = 0;
-        m_pointer [1][0] = 0;
-        m_pointer [1][1] = 1;		
+		m_pointer[0][0] = 1;
+        m_pointer[0][1] = 0;
+        m_pointer[1][0] = 0;
+        m_pointer[1][1] = 1;		
 	} //ie on cree par defaut la matrice identite I_2 ie si on tape Matrice A, on a A = I_2
 	
 	//le constructeur qui est surcharge. Cela permet l'utilisateur de renseigner les elements de la matrice et le nombre de lignes et de colonnes
-	Matrice::Matrice(std::vector<long double> v, int nbLignes, int nbColonnes)
+	Matrice::Matrice(vector<long double> v, int nbLignes, int nbColonnes)
 	{
 		m_nbLignes = nbLignes;
 		m_nbColonnes = nbColonnes;
@@ -201,16 +201,6 @@ using namespace std;
 		m_pointer[i-1][j-1] = x;// il faut decaler une case
 	}
 	
-	void Matrice::setNbLignes(int n)
-	{
-		
-	}
-	
-	void Matrice::setNbColonnes(int n)
-	{
-		
-	}
-	
 	//les accesseurs
 	int Matrice::getNbLignes() const
 	{
@@ -292,6 +282,46 @@ using namespace std;
     	{
         	return false;
     	}
+    }
+    
+    void Matrice::supprimeLigne(int k)
+    {
+    	m_nbLignes += -1;
+    	int i(k - 1); // pr les lignes
+    	int j(0); // pr les colonnes
+    	while (i < m_nbLignes)
+    	{
+    		while(j < m_nbColonnes)
+    		{
+    			m_pointer[i][j] = m_pointer[i + 1][j];
+    			j++;
+    		}
+    		j = 0; 
+    		i++;
+    	}
+    }
+    
+    void Matrice::supprimeColonne(int k)
+    {
+    	m_nbColonnes += -1;
+    	int j(k - 1);
+    	int i(0);
+    	while (j < m_nbColonnes)
+    	{
+    		while (i < m_nbLignes)
+    		{
+    			m_pointer[i][j] = m_pointer[i][j + 1];
+    			i++;
+    		}
+    		i = 0; 
+    		j++;
+    	}
+    }
+    
+    void Matrice::supprimeLigCol(int k, int l)
+    {
+    	this->supprimeLigne(k);
+    	this->supprimeColonne(l);
     }
 		
 	//fonctions a l'exterieur de la classe
