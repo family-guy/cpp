@@ -116,7 +116,7 @@ using namespace std;
         	j = 0;
     	}
 	}
-	
+		
 	//fonctions a l'exterieur de la classe
 	// la surchage des operateurs
 	// pr ==

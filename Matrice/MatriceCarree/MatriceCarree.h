@@ -28,7 +28,7 @@ class MatriceCarree : public Matrice // cela cree une classe MatriceCarree qui h
 	
 	// methode qui donne la matrice identite
 	void identite();
-	
+		
 	protected:
 	// pas de nouvels attributs
 };
