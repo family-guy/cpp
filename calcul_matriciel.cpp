@@ -149,5 +149,20 @@ Polynome polyCaract(MatriceCarree const& A)
 	return P;
 }
 	
-	
+// c'est une fonction recursive. B est la matrice qui diminue a chaque appel, A est la matrice a retourner. A chaque appel, on copie les valeurs de B dans A et ainsi on finit par avoir A echelonnee
+Matrice algoGaussJordan(Matrice A, Matrice B) // A = B = la matrice sur laquelle on fait l'algorithme
+{
+	if (B.getNbLignes() == 1)
+	{
+		return A;
+	}
+	else
+	{
+		B.pivotGauss1ereCol();
+		A.copieSousMatrice(B);
+		B.supprimeLigCol(1, 1);
+		return algoGaussJordan(A, B);
+	}
+}
+
 	

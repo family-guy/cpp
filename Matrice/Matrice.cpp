@@ -1,8 +1,8 @@
 #include "Matrice.h"
 #include <iostream>
-#include <vector>
 #include <string>
 #include <cmath>
+#include <cassert>
 
 using namespace std;
 	
@@ -23,43 +23,31 @@ using namespace std;
 	} //ie on cree par defaut la matrice identite I_2 ie si on tape Matrice A, on a A = I_2
 	
 	//le constructeur qui est surcharge. Cela permet l'utilisateur de renseigner les elements de la matrice et le nombre de lignes et de colonnes
-	Matrice::Matrice(vector<long double> v, int nbLignes, int nbColonnes)
+	Matrice::Matrice(long double *v, int nbLignes, int nbColonnes)
 	{
 		m_nbLignes = nbLignes;
 		m_nbColonnes = nbColonnes;
 		m_pointer = 0; // l'adresse 0 n'existe pas donc le pointeur ne pointe a aucune case memoire
-		int a(nbLignes * nbColonnes);
-		//ceci permet de recuperer la taille du vector entree en parametre
-		int b(v.size()); //b est ainsi la taille du vector. D'ailleurs c'est pourquoi on ne fait pas entrer directement un tableau car il n'y a pas de fonction 
-		// deja faite pour retourner la taille d'un tableau
-		if (a != b) //on verifie que le tableau est la bonne taille
-		{
-			throw string("erreur avec la taille du tableau saisi"); //throw fait partie de try, throw et catch (le try et catch sont dans le main. 
-			//ca peut sembler long mais c'est la bonne facon de faire les choses
-		}
-		else
-		{
-			//on cree la matrice
-			m_pointer = new long double * [m_nbLignes];
-			int i(0); //indice de lignes
-			int j(0); //indice de colonnes
-    		while (i < m_nbLignes)
-    		{
-        		m_pointer[i] = new long double [m_nbColonnes];
-        		i++;
-    		}
-    		i = 0;
-			//on la remplit
-   	 		while (i < m_nbLignes)
-    		{
-        		while (j < m_nbColonnes)
-        		{
-            		m_pointer[i][j] = v[i * m_nbColonnes + j];
-            		j++;
-        		}
-        		i++;
-        		j = 0;
-    		}
+		//on cree la matrice
+		m_pointer = new long double * [m_nbLignes];
+		int i(0); //indice de lignes
+		int j(0); //indice de colonnes
+    	while (i < m_nbLignes)
+    	{
+        	m_pointer[i] = new long double [m_nbColonnes];
+        	i++;
+    	}
+    	i = 0;
+		//on la remplit
+   	 	while (i < m_nbLignes)
+    	{
+        	while (j < m_nbColonnes)
+        	{
+            	m_pointer[i][j] = v[i * m_nbColonnes + j];
+            	j++;
+        	}
+        	i++;
+        	j = 0;
 		}
 	}
 	
@@ -323,6 +311,63 @@ using namespace std;
     	this->supprimeLigne(k);
     	this->supprimeColonne(l);
     }
+    
+    void Matrice::pivotGauss1ereCol()
+    {
+    	if (!(this->estPremiereColonneNulle()))
+    	{
+    		// alors forcement il y a un element non nul dans la premiere colonne
+    		int i(0); int j(0);
+    		while (i < m_nbLignes)
+    		{
+    			if (m_pointer[i][0] != 0)
+    			{
+    				j = i;
+    				i = m_nbLignes;
+    			}
+    			else
+    			{
+    				i++;
+    			}
+    		} // ainsi le rang de cet element est stocke dans i. On echange lignes
+    		this->echangeLignes(1, j + 1); 
+    		// on fait du pivoting avec la 1ere colonne
+    		for (i = 1; i < m_nbLignes; i++)
+    		{
+    			if (m_pointer[i][0] != 0)
+    			{
+    				this->combLineaire(i + 1, 1, -1 * m_pointer[i][0] / m_pointer[0][0]);
+    			}
+    		}
+    	} // si la 1ere colonne est nulle on ne fait rien
+    }
+    
+    void Matrice::combLineaire(int k, int l, long double lambda) // il s'agit de la k ieme ligne et l ieme ligne donc il faut decaler les indices
+    {
+    	int i(0);
+    	while (i < m_nbColonnes)
+    	{
+    		m_pointer[k - 1][i] += lambda * m_pointer[l - 1][i];
+    		i++;
+    	}
+    }
+    				
+    void Matrice::copieSousMatrice(Matrice const& A)
+    {
+		assert((m_nbLignes >= A.m_nbLignes) && (m_nbColonnes >= A.m_nbColonnes) && (m_nbLignes - A.m_nbLignes == m_nbColonnes - A.m_nbColonnes));
+    	int difference(m_nbLignes - A.m_nbLignes);
+    	int i, j; // i pr les lignes, j colonnes 
+    	i = difference; j = difference; // on commence tjs sur le diagonal
+		while (i < m_nbLignes)
+		{
+			while (j < m_nbColonnes)
+			{
+				m_pointer[i][j] = A.m_pointer[i - difference][j - difference];
+				j++;
+			}
+			i++; j = difference;
+		}
+    }			
 		
 	//fonctions a l'exterieur de la classe
 	// la surchage des operateurs

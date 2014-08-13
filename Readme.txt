@@ -1,4 +1,19 @@
-Attempting to build a linear algebra library. The end goal is to be able to carry out matrix reduction i.e. diagonalisation, triangularisation, Jordan-Dunford, etc. and perhaps introduce matrix normes.
-For the moment we have a class Matrice and a daughter class MatriceCarree and can do basic matrix operations (with overloaded operators where appropriate) such as addition, scalar multiplication, multiplication, transposition and calculations such as that of the determinant, adjugate, inverse, n-th power. There is a class Polynome and a function that calculates the characteristic polynomial
+=====================================================================================================================================================================================================
+                              								Welcome to linear algebra
+=====================================================================================================================================================================================================
+The following general matrix operations are supported
+1. Addition
+2. Subtraction
+3. Scalar multiplication
+4. Multiplication
+5. Transposition
+6. Gauss-Jordan algorithm
 
-This started as a university project and was originally written in C
+And for square matrices
+6. Determinant
+7. Adjugate
+8. Inverse
+9. n-th power
+10. Characteristic polynomial
+
+*** Elements of a matrix to be entered by line when prompted e.g. for the matrix Id_2 enter 1 0 0 1 ***

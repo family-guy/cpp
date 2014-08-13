@@ -1,6 +1,5 @@
 #include "MatriceCarree.h"
 #include <iostream>
-#include <vector>
 #include <string>
 #include <cmath>
 
@@ -18,7 +17,7 @@ using namespace std;
 	*/
 	
 	//le constructeur surcharge.
-	MatriceCarree::MatriceCarree(std::vector<long double> v, int nbLignes, int nbColonnes) : Matrice(v, nbLignes, nbColonnes)
+	MatriceCarree::MatriceCarree(long double *v, int nbLignes, int nbColonnes) : Matrice(v, nbLignes, nbColonnes)
 	{
 		
 	}
