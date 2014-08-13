@@ -1,8 +1,6 @@
 #ifndef DEF_MATRICE
 #define DEF_MATRICE
 
-#include <vector>
-
 class Matrice				
 {
 	//methodes. Elles seront publiques cad accesibles depuis l'exterieur
@@ -11,17 +9,7 @@ class Matrice
 	Matrice(); //le constructeur. Il s'agit d'une methode un peu particuliere. Il faut qu'il ait le meme nom que la classe et il ne faut rien envoyer, pas meme void.
 	// Lorsque l'on tape simplement Matrice A pr creer une nouvelle matrice A, le constructeur par defaut ie celui-ci va etre appele
 	
-	Matrice(std::vector<long double> v, int nbLignes, int nbColonnes); //on surchage le constructeur. Comme ca on peut donner des parametres au constructeur
-	//si on a un tableau par ex. fourni par l'utilisateur comme long double T[] = {1, 2, 3, 4, 5, 6}, il faut faire vector<long double> w (T, T + sizeof(T) / sizeof(long double) );
-	//on a mis un throw. Donc dans le main il faut faire
-	/* try //c'est dans la partie qui suit qu'il y a une possibilite d'une erreur
-    {
-		Matrice C(w, 3, 2);  	
-    }
-    catch(string const& chaine) //dans Matrice.cpp on avait un throw type avec type = string d'ou catch string. On l'appelle chaine
-    {
-    	cerr << chaine << endl; //on affiche chaine
-    }*/
+	Matrice(long double *v, int nbLignes, int nbColonnes); //on surchage le constructeur
     
     Matrice(int nbLignes, int nbColonnes); // deuxieme constructeur surcharge. Ca va construire une matrice quelconque de la taille voulue
     
@@ -56,6 +44,12 @@ class Matrice
 	void supprimeColonne(int k); // on supprime la k-ieme colonne
 	
 	void supprimeLigCol(int k, int l); // on supprime la k-ieme ligne et la l-ieme colonne
+	
+	void pivotGauss1ereCol(); // on travaille sur la 1ere colonne. Si elle est nulle, rien a faire. Sinon on fait des operations elementaires de sorte que la colonne soit de la forme [x 0 ... 0]
+	
+	void combLineaire(int k, int l, long double lambda); // on fait L_k = L_k + lambda * L_l
+	
+	void copieSousMatrice(Matrice const& A); // on copie les valeurs de A ou A a x >= 0 nb de lignes et de colonnes moins que la matrice sur laquelle on appelle la methode
 
 	//attributs. Ils seront prives ie inaccesibles depuis l'exterieur
 	protected: //ENCAPSULATION : TOUS LES ATTRIBUTS D'UNE CLASSE DOIVENT TJS ETRE PRIVES

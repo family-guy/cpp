@@ -1,6 +1,7 @@
 #ifndef CALCUL_MATRICIEL_H
 #define CALCUL_MATRICIEL_H
 
+#include "Matrice.h"
 #include "MatriceCarree.h"
 #include "combinatoire.h"
 #include "Polynome.h"
@@ -26,5 +27,7 @@ long double sommeMineurs(MatriceCarree const&A, int k);
 
 // fonction qui retourne le polynome caracteristique
 Polynome polyCaract(MatriceCarree const&A);
+
+Matrice algoGaussJordan(Matrice A, Matrice B);
 
 #endif

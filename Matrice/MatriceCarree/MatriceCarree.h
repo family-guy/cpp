@@ -1,7 +1,6 @@
 #ifndef DEF_MATRICECARREE
 #define DEF_MATRICECARREE
 
-#include <vector>
 #include "Matrice.h"
 
 //il s'agit de l'heritage. La classe MatriceCarree est une classe fille de Matrice
@@ -13,7 +12,7 @@ class MatriceCarree : public Matrice // cela cree une classe MatriceCarree qui h
 	MatriceCarree();
 	
 	//le constructeur surcharge
-	MatriceCarree(std::vector<long double> v, int nbLignes, int nbColonnes); //il faut y avoir les memes parametres que dans le constructeur surcharge de la classe Matrice
+	MatriceCarree(long double *v, int nbLignes, int nbColonnes); //il faut y avoir les memes parametres que dans le constructeur surcharge de la classe Matrice
 	// on peut ajouter des parametres de plus
 	
 	// deuxieme constructeur surcharge comme dans la classe Matrice
